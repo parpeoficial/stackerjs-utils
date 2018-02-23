@@ -1,7 +1,7 @@
 import { StackerJS } from "stackerjs-types";
 
 
-declare module "stacker-utils" {
+declare module "stackerjs-utils" {
 
 
     export class Config extends StackerJS.Config { }
