@@ -1,6 +1,6 @@
 {
     "name": "stackerjs-utils",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "author": {
         "name": "Vinicius Guedes",
         "email": "viniciusgued@gmail.com",
@@ -11,7 +11,7 @@
 
     "dependencies": {
         "babel-polyfill": "^6.26.0",
-        "stackerjs-types": "^0.8.1"
+        "stackerjs-types": "^1.0.2"
     },
     "devDependencies": {
         "babel-cli": "^6.26.0",
