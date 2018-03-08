@@ -1,3 +1,4 @@
-import CPF from "./CPF";
+import * as BR from "./BR";
+import * as PT from "./PT";
 
-module.exports = { CPF };
+module.exports = { BR, PT };
