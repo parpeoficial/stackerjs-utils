@@ -8,4 +8,5 @@ declare module "stackerjs-utils" {
 
     export class Cache extends StackerJS.Cache { }
 
+    export class Utils extends StackerJS.Utils { }
 }
