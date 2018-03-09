@@ -2,32 +2,38 @@ export default function NIF(nif)
 {
     this.validate = () => 
     {
-        let total =
-            nif.substr(0, 1) * 9 +
-            nif.substr(1, 1) * 8 +
-            nif.substr(2, 1) * 7 +
-            nif.substr(3, 1) * 6 +
-            nif.substr(4, 1) * 5 +
-            nif.substr(5, 1) * 4 +
-            nif.substr(6, 1) * 3 +
-            nif.substr(7, 1) * 2;
+        let value = this.clear(nif);
 
-        let value = total - parseInt(total / 11) * 11;
-        let comparator = 0;
+        if (parseInt(value) === 999999999) return true;
 
-        if (value == 1 || value == 0) 
+        if (!value || value.length !== 9 || isNaN(parseInt(value))) 
         {
-            comparator = 0;
-        }
-        else 
-        {
-            comparator = 11 - value;
+            return false;
         }
 
-        var lastDigit = nif.substr(8, 1) * 1;
-        if (lastDigit != comparator) return false;
+        let partValue = value.slice(0, 8);
+        let sum = 0;
+        let len = partValue.length;
 
-        return true;
+        for (var i = 0; i < len; i++) 
+        {
+            sum += partValue[i] * (len + 1 - i);
+        }
+        var mod = sum % 11;
+        let checksum = "" + (mod === 0 || mod === 1 ? 0 : 11 - mod);
+
+        return checksum === value[8];
+    };
+
+    this.clear = () => 
+    {
+        return nif.replace(" ", "");
+    };
+
+    this.format = () => 
+    {
+        let value = this.clear();
+        return value.replace(/^(\d{3})(\d{3})(\d{3})$/, "$1 $2 $3");
     };
 
     return this;
