@@ -51,6 +51,11 @@ describe("Unit/Utils/PTTest", () =>
             expect(Utils.PT.NIF("50103483").validate()).to.be.false;
         });
 
+        it("Should clear", () => 
+        {
+            expect(Utils.PT.NIF("501 034 831").clear()).to.be.equal("501034831");
+        });
+
         it("Should format", () => 
         {
             expect(Utils.PT.NIF("501034831").format()).to.be.equal("501 034 831");

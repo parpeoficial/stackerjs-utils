@@ -27,7 +27,7 @@ export default function NIF(nif)
 
     this.clear = () => 
     {
-        return nif.replace(" ", "");
+        return nif.replace(/\s+/g, "");
     };
 
     this.format = () => 
