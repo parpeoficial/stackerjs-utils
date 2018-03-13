@@ -8,5 +8,47 @@ declare module "stackerjs-utils" {
 
     export class Cache extends StackerJS.Cache { }
 
-    export class Utils extends StackerJS.Utils { }
+    export namespace Utils {
+
+        export namespace BR {
+
+            export function CPF(cpf: string): {
+
+                validate(): boolean;
+
+                clear(): string;
+
+                format(): string;
+
+                locale(): string;
+
+            };
+
+            export function CNPJ(cpf: string): {
+
+                validate(): boolean;
+
+                clear(): string;
+
+                format(): string;
+
+            };
+
+        }
+
+        export namespace PT {
+
+            export function NIF(nif: string): {
+
+                validate(): boolean;
+
+                clear(): string;
+
+                format(): string;
+
+            };
+
+        }
+
+    }
 }
