@@ -1,4 +1,31 @@
 import * as BR from "./BR";
 import * as PT from "./PT";
+import {
+    isString,
+    isLowercase,
+    isUppercase,
+    isBase64,
+    isIPAddress,
+    isJSON,
+    isEmailAddress,
+    isURI,
+} from "./String";
+import { isArray } from "./Array";
+import { isNumber, isLessThan, isGreaterThan, isInteger } from "./Number";
+import { isEmpty, hasLength, hasLengthRange, matches } from "./Other";
 
-module.exports = { BR, PT };
+exports.BR = BR;
+exports.PT = PT;
+exports.Text = {
+    isString,
+    isLowercase,
+    isUppercase,
+    isBase64,
+    isIPAddress,
+    isJSON,
+    isEmailAddress,
+    isURI,
+};
+exports.Arrays = { isArray };
+exports.Numbers = { isNumber, isLessThan, isGreaterThan, isInteger };
+exports.Other = { isEmpty, hasLength, hasLengthRange, matches };
