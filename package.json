@@ -1,6 +1,6 @@
 {
     "name": "stackerjs-utils",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "author": {
         "name": "Vinicius Guedes",
         "email": "viniciusgued@gmail.com",
@@ -10,7 +10,7 @@
     "types": "index.d.ts",
     "dependencies": {
         "babel-polyfill": "^6.26.0",
-        "stackerjs-types": "^1.0.10"
+        "stackerjs-types": "^1.0.12"
     },
     "devDependencies": {
         "babel-cli": "^6.26.0",
@@ -26,18 +26,10 @@
         "nyc": "^11.5.0"
     },
     "nyc": {
-        "exclude": [
-            "lib"
-        ],
+        "exclude": ["lib"],
         "instrument": false,
-        "require": [
-            "babel-register",
-            "babel-polyfill"
-        ],
-        "reporter": [
-            "lcov",
-            "text"
-        ],
+        "require": ["babel-register", "babel-polyfill"],
+        "reporter": ["lcov", "text"],
         "sourceMap": true
     },
     "scripts": {
