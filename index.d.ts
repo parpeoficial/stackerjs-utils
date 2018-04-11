@@ -9,6 +9,10 @@ declare module "stackerjs-utils" {
 
     export namespace Utils {
         export namespace Text {
+            export function snakeCasefy(value:string):string;
+
+            export function camelCasefy(value:string):string;
+            
             export function isString(value): boolean;
 
             export function isLowercase(value): boolean;
