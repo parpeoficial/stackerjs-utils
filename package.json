@@ -1,10 +1,15 @@
 {
     "name": "stackerjs-utils",
     "version": "1.0.6",
+    "keywords": ["stackerjs", "utilities", "framework"],
     "author": {
         "name": "Vinicius Guedes",
         "email": "viniciusgued@gmail.com",
         "url": "https://vinyguedess.github.io"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/parpeoficial/stackerjs-utils"
     },
     "main": "lib/index.js",
     "types": "index.d.ts",
