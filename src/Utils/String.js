@@ -1,3 +1,25 @@
+export const snakeCasefy = value => 
+{
+    return value
+        .split("")
+        .map(letter =>
+            letter === letter.toUpperCase()
+                ? `_${letter.toLowerCase()}`
+                : letter)
+        .join("");
+};
+
+export const camelCasefy = value => 
+{
+    return value
+        .split(/[-_]+/g)
+        .map((word, index) =>
+            index !== 0
+                ? word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                : word)
+        .join("");
+};
+
 export const isString = value => 
 {
     return (

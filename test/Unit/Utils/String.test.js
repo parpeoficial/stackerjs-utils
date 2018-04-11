@@ -3,6 +3,16 @@ import { Utils } from "../../../lib";
 
 describe("Unit/Utils/StringTest", () => 
 {
+    describe("snakeCasefy()", () => 
+    {
+        expect(Utils.Text.snakeCasefy("getAnyAttributeName")).to.be.equal("get_any_attribute_name");
+    });
+
+    describe("camelCasefy()", () => 
+    {
+        expect(Utils.Text.camelCasefy("some_string_to_be_rewritten")).to.be.equal("someStringToBeRewritten");
+    });
+
     describe("isString()", () => 
     {
         it("Should validate", () => 
