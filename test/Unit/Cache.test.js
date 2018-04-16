@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import { expect } from "chai";
-import { Cache } from "./../../lib";
+import { Cache } from "./../../index";
 
 describe("CacheTest", () => 
 {

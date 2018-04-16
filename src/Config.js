@@ -12,6 +12,8 @@ export class Config
     {
         if (!this.envFileLoaded) this.loadEnvFile();
 
+        if (!this.configFilesLoaded) this.loadConfigFiles();
+
         if (typeof this.config[key] !== "undefined") return this.config[key];
 
         return defaultValue;
@@ -20,6 +22,12 @@ export class Config
     static delete(key) 
     {
         delete this.config[key];
+    }
+
+    static clear() 
+    {
+        this.config = {};
+        this.envFileLoaded = this.configFilesLoaded = false;
     }
 
     static loadEnvFile() 
@@ -48,11 +56,29 @@ export class Config
         this.envFileLoaded = true;
     }
 
-    static clear() 
+    static loadConfigFiles() 
     {
-        this.config = {};
-        this.envFileLoaded = false;
+        const parseConfig = (key, items) =>
+            Object.keys(items).map(subKey => 
+            {
+                this.set(`${key}.${subKey}`, items[subKey]);
+                if (typeof items[subKey] === "object")
+                    return parseConfig(`${key}.${subKey}`, items[subKey]);
+
+                return items[subKey];
+            });
+
+        fs
+            .readdirSync(`${process.cwd()}/config/`)
+            .forEach(file =>
+                parseConfig(
+                    file.slice(0, -3),
+                    require(`${process.cwd()}/config/${file}`)
+                ));
+
+        this.configFilesLoaded = true;
     }
 }
 Config.config = {};
 Config.envFileLoaded = false;
+Config.configFilesLoaded = false;
