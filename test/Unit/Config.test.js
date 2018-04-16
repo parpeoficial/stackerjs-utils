@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { Config } from "./../../lib";
+import { Config } from "./../../index";
 import { writeFileSync, unlinkSync } from "fs";
 
 describe("ConfigTest", () => 
@@ -12,7 +12,6 @@ describe("ConfigTest", () =>
 
     it("Should get vars loaded from .env file", () => 
     {
-        // Generates a .env file for testing
         writeFileSync(
             process.cwd() + "/.env",
             "DB_DRIVER=mysql\n# COMMENTED_ROW\nKEY_WITHOUT_VALUE"
@@ -46,6 +45,14 @@ describe("ConfigTest", () =>
     {
         Config.clear();
         expect(Config.get("config.info")).to.be.null;
+    });
+
+    it("Should get data from .JS files in config folder", () => 
+    {
+        expect(Config.get("application.name")).to.be.equal("StackerJS Utils");
+        expect(Config.get("application.dependencies")).to.be.an("Array");
+        expect(Config.get("application.dependencies.0")).to.be.an("object");
+        expect(Config.get("application.dependencies.0.name")).to.be.equal("StackerJS Types");
     });
 
     after(() => unlinkSync(process.cwd() + "/.env"));

@@ -2,6 +2,7 @@
 /.babelrc
 /.nyc_output
 /.travis.yml
+/config
 /coverage
 /node_modules
 /src
