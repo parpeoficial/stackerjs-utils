@@ -1,6 +1,6 @@
 {
     "name": "stackerjs-utils",
-    "version": "1.0.9",
+    "version": "1.0.10",
     "keywords": ["stackerjs", "utilities", "framework"],
     "author": {
         "name": "Vinicius Guedes",
@@ -11,7 +11,7 @@
         "type": "git",
         "url": "https://github.com/parpeoficial/stackerjs-utils"
     },
-    "main": "index.js",
+    "main": "lib/index.js",
     "types": "index.d.ts",
 
     "dependencies": {
