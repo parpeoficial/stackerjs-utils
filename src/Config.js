@@ -68,13 +68,14 @@ export class Config
                 return items[subKey];
             });
 
-        fs
-            .readdirSync(`${process.cwd()}/config/`)
-            .forEach(file =>
-                parseConfig(
-                    file.slice(0, -3),
-                    require(`${process.cwd()}/config/${file}`)
-                ));
+        if (fs.existsSync(`${process.cwd()}/config`))
+            fs
+                .readdirSync(`${process.cwd()}/config`)
+                .forEach(file =>
+                    parseConfig(
+                        file.slice(0, -3),
+                        require(`${process.cwd()}/config/${file}`)
+                    ));
 
         this.configFilesLoaded = true;
     }
