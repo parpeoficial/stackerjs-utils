@@ -51,6 +51,7 @@ describe("ConfigTest", () =>
     it("Should get data from .JS files in config folder", () => 
     {
         expect(Config.get("application.name")).to.be.equal("StackerJS Utils");
+        expect(Config.get("application.test")).to.be.null;
         expect(Config.get("application.dependencies")).to.be.an("Array");
         expect(Config.get("application.dependencies.0")).to.be.an("object");
         expect(Config.get("application.dependencies.0.name")).to.be.equal("StackerJS Types");
