@@ -30,6 +30,7 @@ describe("ConfigTest", () =>
     it("Should get default value when not found key", () => 
     {
         expect(Config.get("non.existent.key")).to.be.null;
+        expect(Config.env("non.existent.key")).to.be.null;
     });
 
     it("Should delete any value by key", () => 
