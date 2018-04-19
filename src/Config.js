@@ -78,7 +78,7 @@ export class Config
             Object.keys(items).map(subKey => 
             {
                 this.set(`${key}.${subKey}`, items[subKey]);
-                if (typeof items[subKey] === "object")
+                if (items[subKey] && typeof items[subKey] === "object")
                     return parseConfig(`${key}.${subKey}`, items[subKey]);
 
                 return items[subKey];
