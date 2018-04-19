@@ -1,11 +1,7 @@
 {
     "name": "stackerjs-utils",
-    "version": "1.1.0",
-    "keywords": [
-        "stackerjs",
-        "utilities",
-        "framework"
-    ],
+    "version": "1.1.1",
+    "keywords": ["stackerjs", "utilities", "framework"],
     "author": {
         "name": "Vinicius Guedes",
         "email": "viniciusgued@gmail.com",
@@ -32,23 +28,14 @@
         "nyc": "^11.7.1"
     },
     "nyc": {
-        "exclude": [
-            "lib",
-            "test",
-            "index.js"
-        ],
-        "require": [
-            "babel-register",
-            "babel-polyfill"
-        ],
-        "reporter": [
-            "lcov",
-            "text"
-        ]
+        "exclude": ["lib", "test", "index.js"],
+        "require": ["babel-register", "babel-polyfill"],
+        "reporter": ["lcov", "text"]
     },
     "scripts": {
         "precommit": "eslint src/**/*.js --fix",
         "build": "./node_modules/.bin/babel src -d lib",
-        "test": "NODE_ENV=dev ./node_modules/.bin/nyc ./node_modules/mocha/bin/_mocha"
+        "test":
+            "NODE_ENV=dev ./node_modules/.bin/nyc ./node_modules/mocha/bin/_mocha"
     }
 }
