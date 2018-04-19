@@ -59,10 +59,13 @@ export class Config
             let [key, value] = row.trim().split("=");
             if (key && value) 
             {
-                this.config.env[key] = value;
+                this.config.env[key.trim()] = value.trim();
                 this.config.env[
-                    key.replace(/[-_]/g, ".").toLowerCase()
-                ] = value;
+                    key
+                        .replace(/[-_]/g, ".")
+                        .toLowerCase()
+                        .trim()
+                ] = value.trim();
             }
         });
 
