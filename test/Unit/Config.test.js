@@ -17,8 +17,8 @@ describe("ConfigTest", () =>
             "DB_DRIVER=mysql\n# COMMENTED_ROW\nKEY_WITHOUT_VALUE"
         );
 
-        expect(Config.get("DB_DRIVER")).to.be.equal("mysql");
-        expect(Config.get("db.driver")).to.be.equal("mysql");
+        expect(Config.env("DB_DRIVER")).to.be.equal("mysql");
+        expect(Config.env("db.driver")).to.be.equal("mysql");
     });
 
     it("Should set and get data from Configuration", () => 
@@ -30,6 +30,7 @@ describe("ConfigTest", () =>
     it("Should get default value when not found key", () => 
     {
         expect(Config.get("non.existent.key")).to.be.null;
+        expect(Config.env("non.existent.key")).to.be.null;
     });
 
     it("Should delete any value by key", () => 

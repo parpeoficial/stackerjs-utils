@@ -4,29 +4,40 @@ export class Config
 {
     static set(key, value) 
     {
-        this.config[key.trim()] =
+        this.config.custom[key.trim()] =
             typeof value === "string" ? value.trim() : value;
     }
 
     static get(key, defaultValue = null) 
     {
-        if (!this.envFileLoaded) this.loadEnvFile();
-
         if (!this.configFilesLoaded) this.loadConfigFiles();
 
-        if (typeof this.config[key] !== "undefined") return this.config[key];
+        if (typeof this.config.custom[key] !== "undefined") 
+        {
+            console.log(key);
+            return this.config.custom[key];
+        }
+
+        return defaultValue;
+    }
+
+    static env(key, defaultValue = null) 
+    {
+        if (!this.envFileLoaded) this.loadEnvFile();
+
+        if (process.env[key]) return process.env[key];
 
         return defaultValue;
     }
 
     static delete(key) 
     {
-        delete this.config[key];
+        delete this.config.custom[key];
     }
 
     static clear() 
     {
-        this.config = {};
+        this.config = { env: {}, custom: {} };
         this.envFileLoaded = this.configFilesLoaded = false;
     }
 
@@ -48,8 +59,8 @@ export class Config
             let [key, value] = row.trim().split("=");
             if (key && value) 
             {
-                this.set(key, value);
-                this.set(key.replace(/[-_]/g, ".").toLowerCase(), value);
+                process.env[key] = value;
+                process.env[key.replace(/[-_]/g, ".").toLowerCase()] = value;
             }
         });
 
@@ -80,6 +91,6 @@ export class Config
         this.configFilesLoaded = true;
     }
 }
-Config.config = {};
+Config.config = { env: {}, custom: {} };
 Config.envFileLoaded = false;
 Config.configFilesLoaded = false;
