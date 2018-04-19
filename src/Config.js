@@ -12,11 +12,8 @@ export class Config
     {
         if (!this.configFilesLoaded) this.loadConfigFiles();
 
-        if (typeof this.config.custom[key] !== "undefined") 
-        {
-            console.log(key);
+        if (typeof this.config.custom[key] !== "undefined")
             return this.config.custom[key];
-        }
 
         return defaultValue;
     }
@@ -25,7 +22,10 @@ export class Config
     {
         if (!this.envFileLoaded) this.loadEnvFile();
 
-        if (process.env[key]) return process.env[key];
+        if (typeof this.config.env[key] !== "undefined")
+            return this.config.env[key];
+
+        if (typeof process.env[key] !== "undefined") return process.env[key];
 
         return defaultValue;
     }
@@ -59,8 +59,10 @@ export class Config
             let [key, value] = row.trim().split("=");
             if (key && value) 
             {
-                process.env[key] = value;
-                process.env[key.replace(/[-_]/g, ".").toLowerCase()] = value;
+                this.config.env[key] = value;
+                this.config.env[
+                    key.replace(/[-_]/g, ".").toLowerCase()
+                ] = value;
             }
         });
 
