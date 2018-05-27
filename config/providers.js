@@ -14,15 +14,19 @@ module.exports = {
         },
 
         Person: {
-            factory: function Person ({ name, job, race })
+            factory: function Person ()
             {
-                this.name = name;
-                this.job = job;
-                this.race = race;
+                this.params = {};
+
+                this.make = (params) =>
+                {
+                    this.params = params;
+                }
                 
                 this.presentYourself = () =>
                 {
-                    return `Hi, my name is ${this.name}, I'm a ${this.race} that does ${this.job} for living!`
+                    let { name, race, job } = this.params;
+                    return `Hi, my name is ${name}, I'm a ${race} that does ${job} for living!`
                 }
             },
             params: {

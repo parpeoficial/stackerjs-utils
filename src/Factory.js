@@ -14,10 +14,13 @@ Factory.make = (who, params = {}) =>
     if (!Factory.pool[who])
         return null;
 
-    return new Factory.pool[who].factory({
-        ...Factory.pool[who].params,
-        ...params 
-    });
+    return Factory.build({
+        ...Factory.pool[who],
+        params: {
+            ...Factory.pool[who].params,
+            ...params
+        }
+    }, false);
 }
 
 Factory.load = () =>
@@ -37,15 +40,21 @@ Factory.load = () =>
     return true;
 }
 
-Factory.build = ({ name, factory, params }) =>
+Factory.build = ({ name, factory, params }, save = true) =>
 {
-    let built = new factory(params);
-    Factory.pool[name] = {
-        name,
-        params,
-        factory,
-        built
-    }
+    let built = new factory();
+    if (typeof built.make === "function")
+        built.make(params);
+
+    if (save)
+        Factory.pool[name] = {
+            name,
+            params,
+            factory,
+            built
+        };
+
+    return built;
 }
 
 Factory.pool = {}
