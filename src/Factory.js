@@ -14,7 +14,10 @@ Factory.make = (who, params = {}) =>
     if (!Factory.pool[who])
         return null;
 
-    return new Factory.pool[who].factory(params);
+    return new Factory.pool[who].factory({
+        ...Factory.pool[who].params,
+        ...params 
+    });
 }
 
 Factory.load = () =>
