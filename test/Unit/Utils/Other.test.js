@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { Utils } from "../../../index";
+import { Utils } from "../../../src";
 
 describe("Unit/Utils/OtherTest", () => 
 {
