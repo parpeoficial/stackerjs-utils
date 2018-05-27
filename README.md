@@ -12,9 +12,7 @@
 
 Package of utilities that works nicely in and outside [StackerJS](https://github.com/parpeoficial/stackerjs)
 
-## Usage
-
-### Config
+## Config
 
 ```javascript
 import { Config } from 'stackerjs-utils';
@@ -26,7 +24,7 @@ Config.get('any.value'); // { "name": "stackerjs" }
 Config.get('any.type'); // Hello
 ```
 
-#### .ENV file
+### .ENV file
 
 When a .env is configured in project root like this:
 
@@ -40,6 +38,45 @@ It can be accessed by Config as:
 ```javascript
 import { Config } from 'stackerjs-utils';
 
-Config.get('db.driver'); // mysql
-Config.get('DB_DRIVER'); // mysql
+Config.env('db.driver'); // mysql
+Config.env('DB_DRIVER'); // mysql
+```
+
+## Factory
+Permits access easily functions and classes.
+
+### Defining
+```javascript
+// config/providers.js
+
+module.exports = {
+    factories: {
+        "FactoryName": function FactoryName()
+        {
+            //Do something
+        },
+        "OtherFactory": {
+            factory: function Factorial() { /* Do something */ },
+            params: { 
+                define: "default",
+                params: "to",
+                be: "accessed",
+                by: "factory"
+            }
+        }
+    }
+}
+```
+
+### Accessing
+```javascript
+import { Factory } from "stackerjs-utils";
+
+let otherFactory = Factory("OtherFactory");
+otherFactory.define; // default
+otherFactory.params; // to
+
+let otherFactory = Factory.make("OtherFactory", { define: "any" });
+otherFactory.define; // any
+otherFactory.params; // to
 ```
