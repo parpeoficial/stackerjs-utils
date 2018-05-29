@@ -6,38 +6,54 @@ export class ValidatorFactory
     constructor()
     {
         this.params;
-    }
-
-    make(params)
-    {
         this.validRules = ["required", "min", "max"];
-
         this.messages = {
             required: "required __FIELD__ is not filled",
             min: "__FIELD__ min size is __MIN__ but has __HAVE_MIN__",
             max: "__FIELD__ max size is __MAX__ but has __HAVE_MAX__"
         };
+    }
 
-        this.params = params;
+    make(params)
+    {
+        this.params = Object.keys(params || {}).map(field => 
+            params[field].split("|")
+                .map(rule => {
+                    if (!rule.includes(':'))
+                        return { field, name: rule, value: true };
+
+                    let [name, value] = rule.split(":");
+                    if (!isNaN(value))
+                        value = parseInt(value);
+
+                    return { field, name, value };
+                }));
     }
 
     validate(data)
     {
-        Object.keys(this.params).forEach(field => 
+        const errors = {};
+        const addError = (field, message) =>
         {
-            let rules = this.params[field] = field.split("|")
-                .map(rule => {
-                    if (!rule.includes(':'))
-                        return { rule, value: true };
+            if (!errors[field])
+                errors[field] = [];
 
-                    let [rule, value] = rule.split(":");
-                    return { rule, value };
-                })
-                .filter(({ rule }) => this.validRules.includes(rule));
+            errors[field].push(message);
+        }
+
+        this.params.forEach(rulesGroup => 
+        {
+            rulesGroup.forEach(rule => 
+            {
+                if (rule.name === "required" && (typeof data[rule.field] === "undefined" || data[rule.field] === null))
+                    addError(rule.field, this.messages[rule.name]);
+            });
         });
+
+        return this.buildResult(errors)
     }
 
-    buildResponse(errors)
+    buildResult(errors)
     {
         return {
             isValid: () => Object.keys(errors).length > 0,

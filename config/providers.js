@@ -1,8 +1,10 @@
-
+const { ValidatorFactory } = require("./../src/Factories/ValidatorFactory");
 
 module.exports = {
 
     factories: {
+        Validator: ValidatorFactory,
+
         DB: function ()
         {
             function getQueryCriteria()
