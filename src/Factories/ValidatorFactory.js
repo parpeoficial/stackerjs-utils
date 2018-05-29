@@ -1,9 +1,9 @@
 
 
-export class ValidatorFactory
+export class ValidatorFactory 
 {
 
-    constructor()
+    constructor() 
     {
         this.params;
         this.validRules = ["required", "min", "max"];
@@ -14,32 +14,30 @@ export class ValidatorFactory
         };
     }
 
-    make(params)
+    make(params) 
     {
-        this.params = Object.keys(params || {}).map(field => 
+        this.params = Object.keys(params || {}).map(field =>
             params[field].split("|")
-                .map(rule => {
-                    if (!rule.includes(':'))
+                .map(rule => 
+                {
+                    if (!rule.includes(":"))
                         return { field, name: rule, value: true };
 
                     let [name, value] = rule.split(":");
-                    if (!isNaN(value))
-                        value = parseInt(value);
-
-                    return { field, name, value };
+                    return { field, name, value: parseInt(value) };
                 }));
     }
 
-    validate(data)
+    validate(data) 
     {
         const errors = {};
-        const addError = (field, message) =>
+        const addError = (field, message) => 
         {
             if (!errors[field])
                 errors[field] = [];
 
             errors[field].push(message);
-        }
+        };
 
         this.params.forEach(rulesGroup => 
         {
@@ -50,16 +48,16 @@ export class ValidatorFactory
             });
         });
 
-        return this.buildResult(errors)
+        return this.buildResult(errors);
     }
 
-    buildResult(errors)
+    buildResult(errors) 
     {
         return {
             isValid: () => !Object.keys(errors).length,
             getErrors: (key = null) =>
                 key && errors[key] ? errors[key] : errors
-        }
+        };
     }
 
 }

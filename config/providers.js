@@ -1,35 +1,25 @@
-const { ValidatorFactory } = require("./../src/Factories/ValidatorFactory");
+import { ValidatorFactory } from "./../src/Factories/ValidatorFactory";
 
 module.exports = {
 
     factories: {
         Validator: ValidatorFactory,
 
-        DB: function ()
-        {
-            function getQueryCriteria()
-            {
-                return { 
-                    eq(field, value) { return field === value; } 
-                }
-            }
-        },
-
         Person: {
-            factory: function Person ()
+            factory: function Person() 
             {
                 this.params = {};
 
-                this.make = (params) =>
+                this.make = (params) => 
                 {
                     this.params = params;
-                }
-                
-                this.presentYourself = () =>
+                };
+
+                this.presentYourself = () => 
                 {
                     let { name, race, job } = this.params;
-                    return `Hi, my name is ${name}, I'm a ${race} that does ${job} for living!`
-                }
+                    return `Hi, my name is ${name}, I'm a ${race} that does ${job} for living!`;
+                };
             },
             params: {
                 name: "Luke Sky Walker",
@@ -39,4 +29,4 @@ module.exports = {
         }
     }
 
-}
+};

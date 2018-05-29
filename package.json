@@ -30,10 +30,12 @@
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.1.2",
     "mocha": "^5.1.1",
     "nyc": "^11.7.1",
-    "travis-deploy-once": "^5.0.0",
-    "semantic-release": "^15.5.0"
+    "semantic-release": "^15.5.0",
+    "travis-deploy-once": "^5.0.0"
   },
   "nyc": {
     "exclude": [
@@ -51,7 +53,8 @@
     ]
   },
   "scripts": {
-    "precommit": "eslint src/**/*.js --fix",
+    "precommit": "./node_modules/.bin/lint-staged",
+    "lint": "eslint src/**/*.js --fix",
     "build": "./node_modules/.bin/babel src -d lib",
     "test": "./node_modules/.bin/nyc ./node_modules/mocha/bin/_mocha",
     "travis-deploy-once": "travis-deploy-once",
