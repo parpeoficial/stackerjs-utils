@@ -43,7 +43,13 @@ export class ValidatorFactory
         {
             rulesGroup.forEach(rule => 
             {
-                if (rule.name === "required" && (typeof data[rule.field] === "undefined" || data[rule.field] === null))
+                if (rule.name === "required" && (typeof data[rule.field] === "undefined" || data[rule.field] === null)) 
+                {
+                    console.log(rule.field, data[rule.field], data);
+                    addError(rule.field, this.messages[rule.name]);
+                }
+
+                if (rule.name === "max" && ((typeof data[rule.field] === "string" && data[rule.field].length > rule.value) || (typeof data[rule.field] === "number" && data[rule.field] > rule.value)))
                     addError(rule.field, this.messages[rule.name]);
             });
         });
