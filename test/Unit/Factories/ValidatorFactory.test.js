@@ -57,4 +57,21 @@ describe("Unit/Factories/ValidatorFactoryTest", () =>
         expect(response.getErrors("age")).to.be.lengthOf(1);
     });
 
+    it("Should validate min size/value of fields", () => 
+    {
+        let driverValidator = Factory.make("Validator", {
+            name: "required|min:3",
+            age: "required|min:18"
+        });
+
+        let response = driverValidator.validate({
+            name: "Sá",
+            age: 17
+        });
+
+        expect(response.isValid()).to.be.false;
+        expect(response.getErrors("name")).to.be.lengthOf(1);
+        expect(response.getErrors("age")).to.be.lengthOf(1);
+    });
+
 });
