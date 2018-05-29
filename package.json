@@ -1,56 +1,60 @@
 {
-    "name": "stackerjs-utils",
-    "version": "1.1.3",
-    "keywords": [
-        "stackerjs",
-        "utilities",
-        "framework"
+  "name": "stackerjs-utils",
+  "version": "0.0.0-development",
+  "keywords": [
+    "stackerjs",
+    "utilities",
+    "framework"
+  ],
+  "author": {
+    "name": "Vinicius Guedes",
+    "email": "viniciusgued@gmail.com",
+    "url": "https://vinyguedess.github.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/parpeoficial/stackerjs-utils"
+  },
+  "main": "lib/index.js",
+  "types": "index.d.ts",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "global": "^4.3.2",
+    "semantic-release-cli": "^4.0.1",
+    "stackerjs-types": "^1.1.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
+    "mocha": "^5.1.1",
+    "nyc": "^11.7.1",
+    "travis-deploy-once": "^5.0.0",
+    "semantic-release": "^15.5.0"
+  },
+  "nyc": {
+    "exclude": [
+      "config",
+      "lib",
+      "test"
     ],
-    "author": {
-        "name": "Vinicius Guedes",
-        "email": "viniciusgued@gmail.com",
-        "url": "https://vinyguedess.github.io"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/parpeoficial/stackerjs-utils"
-    },
-    "main": "lib/index.js",
-    "types": "index.d.ts",
-    "dependencies": {
-        "babel-polyfill": "^6.26.0",
-        "global": "^4.3.2",
-        "semantic-release-cli": "^4.0.1",
-        "stackerjs-types": "^1.1.1"
-    },
-    "devDependencies": {
-        "babel-cli": "^6.26.0",
-        "babel-core": "^6.26.0",
-        "babel-plugin-transform-object-rest-spread": "^6.26.0",
-        "babel-preset-env": "^1.6.1",
-        "babel-register": "^6.26.0",
-        "chai": "^4.1.2",
-        "mocha": "^5.1.1",
-        "nyc": "^11.7.1"
-    },
-    "nyc": {
-        "exclude": [
-            "config",
-            "lib",
-            "test"
-        ],
-        "require": [
-            "babel-register",
-            "babel-polyfill"
-        ],
-        "reporter": [
-            "lcov",
-            "text"
-        ]
-    },
-    "scripts": {
-        "precommit": "eslint src/**/*.js --fix",
-        "build": "./node_modules/.bin/babel src -d lib",
-        "test": "./node_modules/.bin/nyc ./node_modules/mocha/bin/_mocha"
-    }
+    "require": [
+      "babel-register",
+      "babel-polyfill"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ]
+  },
+  "scripts": {
+    "precommit": "eslint src/**/*.js --fix",
+    "build": "./node_modules/.bin/babel src -d lib",
+    "test": "./node_modules/.bin/nyc ./node_modules/mocha/bin/_mocha",
+    "travis-deploy-once": "travis-deploy-once",
+    "semantic-release": "semantic-release"
+  }
 }
