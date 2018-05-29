@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { Factory } from "../../../src";
 
 
-describe("Test/Unit/Factories/ValidatorFactoryTest", () =>
+describe("Unit/Factories/ValidatorFactoryTest", () =>
 {
 
     before(() =>
@@ -18,11 +18,26 @@ describe("Test/Unit/Factories/ValidatorFactoryTest", () =>
         });
 
         let response = driverValidator.validate({
-            name: "Fulano de tal"
+            name: "John Mayer"
+        });
+
+        expect(response.isValid()).to.be.false;
+        expect(response.getErrors()).to.have.property("age");
+    });
+
+    it("Should be valid whe there's no errors", () => 
+    {
+        let driverValidator = Factory.make("Validator", {
+            name: "required",
+            age: "required"
+        });
+
+        let response = driverValidator.validate({
+            name: "Lewis Hamilton",
+            age: 32
         });
 
         expect(response.isValid()).to.be.true;
-        expect(response.getErrors()).to.have.property("age");
     });
 
 });
