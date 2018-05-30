@@ -6,7 +6,6 @@ export class ValidatorFactory
     constructor() 
     {
         this.params;
-        this.errors = {};
 
         this.validRules = ["required", "min", "max"];
         this.messages = {
@@ -35,13 +34,14 @@ export class ValidatorFactory
 
     validate(data) 
     {
-        this.params.forEach(rulesGroup => 
-            rulesGroup.forEach(rule => this.checkupRule(rule, data)));
+        let errors = {};
+        this.params.forEach(rulesGroup =>
+            rulesGroup.forEach(rule => this.checkupRule(rule, data, errors)));
 
-        return this.buildResult();
+        return this.buildResult(errors);
     }
 
-    checkupRule(rule, data)
+    checkupRule(rule, data, errors) 
     {
         if (rule.name === "string" && typeof data[rule.field] === "string") return;
 
@@ -52,12 +52,12 @@ export class ValidatorFactory
         if (rule.name === "required" && (typeof data[rule.field] !== "undefined" && data[rule.field] !== null)) return;
 
         if (rule.name === "min" && ((typeof data[rule.field] === "string" && data[rule.field].length > rule.value) || (typeof data[rule.field] === "number" && data[rule.field] > rule.value)))
-            return;    
+            return;
 
         if (rule.name === "max" && ((typeof data[rule.field] === "string" && data[rule.field].length < rule.value) || (typeof data[rule.field] === "number" && data[rule.field] < rule.value)))
             return;
 
-        this.addError(rule.field, this.messages[rule.name]
+        this.addError(errors, rule.field, this.messages[rule.name]
             .replace(/__FIELD__/g, rule.field)
             .replace(/__MIN__/g, rule.value)
             .replace(/__HAVE_MIN__/g, typeof data[rule.field] === "string" ? data[rule.field].length : data[rule.field])
@@ -65,20 +65,20 @@ export class ValidatorFactory
             .replace(/__HAVE_MAX__/g, typeof data[rule.field] === "string" ? data[rule.field].length : data[rule.field]));
     }
 
-    addError(field, message) 
+    addError(errors, field, message) 
     {
-        if (!this.errors[field])
-            this.errors[field] = [];
+        if (!errors[field])
+            errors[field] = [];
 
-        this.errors[field].push(message);
+        errors[field].push(message);
     }
 
-    buildResult() 
+    buildResult(errors) 
     {
         return {
-            isValid: () => !Object.keys(this.errors).length,
+            isValid: () => !Object.keys(errors).length,
             getErrors: (key = null) =>
-                key && this.errors[key] ? this.errors[key] : this.errors
+                key && errors[key] ? errors[key] : errors
         };
     }
 

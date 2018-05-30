@@ -19,6 +19,7 @@
   "types": "index.d.ts",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "bcrypt": "^2.0.1",
     "global": "^4.3.2",
     "semantic-release-cli": "^4.0.1",
     "stackerjs-types": "^1.1.1"
