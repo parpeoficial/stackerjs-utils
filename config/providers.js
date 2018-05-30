@@ -1,9 +1,12 @@
 import { ValidatorFactory } from "./../src/Factories/ValidatorFactory";
+import { HashFactory } from "../src/Factories/HashFactory";
 
 module.exports = {
 
     factories: {
         Validator: ValidatorFactory,
+
+        Hash: HashFactory,
 
         Person: {
             factory: function Person() 
