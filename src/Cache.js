@@ -37,7 +37,7 @@ export class Cache
                 key: fileName,
                 data: fileContent,
                 expiresAt: expiresAt,
-                createdAt: new Date(),
+                createdAt: new Date()
             }))
         );
     }

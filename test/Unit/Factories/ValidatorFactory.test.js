@@ -74,4 +74,49 @@ describe("Unit/Factories/ValidatorFactoryTest", () =>
         expect(response.getErrors("age")).to.be.lengthOf(1);
     });
 
+    describe("Validating field types", () => 
+    {
+        it("Should validate field is a string", () => 
+        {
+            let validator = Factory.make("Validator", {
+                name: "string"
+            });
+
+            let response = validator.validate({
+                "name": 123
+            });
+
+            expect(response.isValid()).to.be.false;
+            expect(response.getErrors("name")).to.be.lengthOf(1);
+        });
+
+        it("Should validate field is an integer", () => 
+        {
+            let validator = Factory.make("Validator", {
+                age: "number"
+            });
+
+            let response = validator.validate({
+                age: "123"
+            });
+
+            expect(response.isValid()).to.be.false;
+            expect(response.getErrors("age")).to.be.lengthOf(1);
+        });
+
+        it("Should validate field is boolean", () => 
+        {
+            let validator = Factory.make("Validator", {
+                active: "boolean"
+            });
+
+            let response = validator.validate({
+                active: 123
+            });
+
+            expect(response.isValid()).to.be.false;
+            expect(response.getErrors("active")).to.be.lengthOf(1);
+        });
+    });
+
 });

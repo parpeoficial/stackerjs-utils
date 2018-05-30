@@ -48,7 +48,7 @@ export class Config
 
         let envFileItem = fs
             .readFileSync(envFilePath, {
-                encoding: "utf8",
+                encoding: "utf8"
             })
             .split("\n");
 

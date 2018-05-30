@@ -7,7 +7,7 @@ export const Factory = who =>
         return Factory.pool[who].built;
 
     return null;
-}
+};
 
 Factory.make = (who, params = {}) =>
 {
@@ -21,15 +21,16 @@ Factory.make = (who, params = {}) =>
             ...params
         }
     }, false);
-}
+};
 
 Factory.load = () =>
 {
     let factories = Config.get("providers.factories");
-    Object.keys(factories).forEach(key => {
+    Object.keys(factories).forEach(key => 
+    {
         let data = factories[key];
         if (typeof data === "function")
-            data = { name: key, factory: data }
+            data = { name: key, factory: data };
 
         if (!data.name)
             data.name = data.factory.name;
@@ -38,7 +39,7 @@ Factory.load = () =>
     });
 
     return true;
-}
+};
 
 Factory.build = ({ name, factory, params }, save = true) =>
 {
@@ -55,6 +56,6 @@ Factory.build = ({ name, factory, params }, save = true) =>
         };
 
     return built;
-}
+};
 
-Factory.pool = {}
+Factory.pool = {};
