@@ -38,28 +38,31 @@ export class ValidatorFactory
         this.params.forEach(rulesGroup => 
             rulesGroup.forEach(rule => this.checkupRule(rule, data)));
 
-        return this.buildResult(this.errors);
+        return this.buildResult();
     }
 
     checkupRule(rule, data)
     {
-        if (rule.name === "string" && typeof data[rule.field] !== "string")
-            this.addError(rule.field, this.messages[rule.name].replace(/__FIELD__/g, rule.field));
+        if (rule.name === "string" && typeof data[rule.field] === "string") return;
 
-        if (rule.name === "number" && typeof data[rule.field] !== "number")
-            this.addError(rule.field, this.messages[rule.name].replace(/__FIELD__/g, rule.field));
+        if (rule.name === "number" && typeof data[rule.field] === "number") return;
 
-        if (rule.name === "boolean" && typeof data[rule.field] !== "boolean")
-            this.addError(rule.field, this.messages[rule.name].replace(/__FIELD__/g, rule.field));
+        if (rule.name === "boolean" && typeof data[rule.field] === "boolean") return;
 
-        if (rule.name === "required" && (typeof data[rule.field] === "undefined" || data[rule.field] === null))
-            this.addError(rule.field, this.messages[rule.name].replace(/__FIELD__/g, rule.field));
+        if (rule.name === "required" && (typeof data[rule.field] !== "undefined" && data[rule.field] !== null)) return;
 
-        if (rule.name === "min" && ((typeof data[rule.field] === "string" && data[rule.field].length < rule.value) || (typeof data[rule.field] === "number" && data[rule.field] < rule.value)))
-            this.addError(rule.field, this.messages[rule.name].replace(/__FIELD__/g, rule.field).replace(/__MIN__/g, rule.value).replace(/__HAVE_MIN__/g, typeof data[rule.field] === "string" ? data[rule.field].length : data[rule.field]));
+        if (rule.name === "min" && ((typeof data[rule.field] === "string" && data[rule.field].length > rule.value) || (typeof data[rule.field] === "number" && data[rule.field] > rule.value)))
+            return;    
 
-        if (rule.name === "max" && ((typeof data[rule.field] === "string" && data[rule.field].length > rule.value) || (typeof data[rule.field] === "number" && data[rule.field] > rule.value)))
-            this.addError(rule.field, this.messages[rule.name].replace(/__FIELD__/g, rule.field).replace(/__MAX__/g, rule.value).replace(/__HAVE_MAX__/g, typeof data[rule.field] === "string" ? data[rule.field].length : data[rule.field]));
+        if (rule.name === "max" && ((typeof data[rule.field] === "string" && data[rule.field].length < rule.value) || (typeof data[rule.field] === "number" && data[rule.field] < rule.value)))
+            return;
+
+        this.addError(rule.field, this.messages[rule.name]
+            .replace(/__FIELD__/g, rule.field)
+            .replace(/__MIN__/g, rule.value)
+            .replace(/__HAVE_MIN__/g, typeof data[rule.field] === "string" ? data[rule.field].length : data[rule.field])
+            .replace(/__MAX__/g, rule.value)
+            .replace(/__HAVE_MAX__/g, typeof data[rule.field] === "string" ? data[rule.field].length : data[rule.field]));
     }
 
     addError(field, message) 
@@ -70,12 +73,12 @@ export class ValidatorFactory
         this.errors[field].push(message);
     }
 
-    buildResult(errors) 
+    buildResult() 
     {
         return {
-            isValid: () => !Object.keys(errors).length,
+            isValid: () => !Object.keys(this.errors).length,
             getErrors: (key = null) =>
-                key && errors[key] ? errors[key] : errors
+                key && this.errors[key] ? this.errors[key] : this.errors
         };
     }
 

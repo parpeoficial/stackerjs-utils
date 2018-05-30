@@ -13,13 +13,15 @@ describe("Unit/Factories/ValidatorFactoryTest", () =>
     it("Should be valid whe there's no errors", () => 
     {
         let driverValidator = Factory.make("Validator", {
-            name: "required",
-            age: "required"
+            name: "string|required|min:2|max:100",
+            age: "number|required|min:18|max:100",
+            active: "boolean|required"
         });
 
         let response = driverValidator.validate({
             name: "Lewis Hamilton",
-            age: 32
+            age: 32,
+            active: false
         });
 
         expect(response.isValid()).to.be.true;
