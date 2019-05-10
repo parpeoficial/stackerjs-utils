@@ -1,8 +1,8 @@
 import { expect } from "chai";
-import { Config } from "./../../index";
+import { Config } from "./../../src";
 import { writeFileSync, unlinkSync } from "fs";
 
-describe("ConfigTest", () => 
+describe("Unit/ConfigTest", () => 
 {
     it("Should get vars setted manually", () => 
     {

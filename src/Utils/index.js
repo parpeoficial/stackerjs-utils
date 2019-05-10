@@ -10,7 +10,7 @@ import {
     isIPAddress,
     isJSON,
     isEmailAddress,
-    isURI,
+    isURI
 } from "./String";
 import { isArray } from "./Array";
 import { isNumber, isLessThan, isGreaterThan, isInteger } from "./Number";
@@ -28,7 +28,7 @@ exports.Text = {
     isIPAddress,
     isJSON,
     isEmailAddress,
-    isURI,
+    isURI
 };
 exports.Arrays = { isArray };
 exports.Numbers = { isNumber, isLessThan, isGreaterThan, isInteger };

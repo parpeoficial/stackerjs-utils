@@ -1,8 +1,8 @@
 import * as fs from "fs";
 import { expect } from "chai";
-import { Cache } from "./../../index";
+import { Cache } from "./../../src";
 
-describe("CacheTest", () => 
+describe("Unit/CacheTest", () => 
 {
     describe("Setting cache", () => 
     {

@@ -1,9 +1,6 @@
-import { Cache } from "./Cache";
-import { Config } from "./Config";
+export { Cache } from "./Cache";
+export { Config } from "./Config";
+export { Factory } from "./Factory";
 import * as Utils from "./Utils";
-
-exports.Config = Config;
-
-exports.Cache = Cache;
 
 exports.Utils = Utils;
